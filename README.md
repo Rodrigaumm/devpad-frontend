@@ -2,4 +2,4 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 # App preview
 
-[devpad](https://devpad.rodrigaum.tk/)
+[DevPad](https://devpad.rodrigaum.tk/)
