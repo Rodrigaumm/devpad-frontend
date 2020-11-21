@@ -1,12 +1,12 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import { FiSearch } from "react-icons/fi";
+import React, { useEffect, useState, useRef, useCallback } from 'react';
+import { FiSearch } from 'react-icons/fi';
 
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import Tag from "../../components/Tag";
-import CreateNoteButton from "../../components/CreateNoteButton";
-import NotePreview from "../../components/NotePreview";
-import Loading from "../../components/Loading";
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import Tag from '../../components/Tag';
+import CreateNoteButton from '../../components/CreateNoteButton';
+import NotePreview from '../../components/NotePreview';
+import Loading from '../../components/Loading';
 import {
   Container,
   SearchBar,
@@ -14,24 +14,24 @@ import {
   TagsContainer,
   NotesContainer,
   NullContainer,
-} from "./styles";
-import api from "../../services/api";
+} from './styles';
+import api from '../../services/api';
 
 const Dashboard = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState(null);
   const [notes, setNotes] = useState(null);
   const [apiNotesData, setApiNotesData] = useState({});
   const [apiTagsData, setApiTagsData] = useState({});
   const [search, setSearch] = useState([]);
-  const [searchBarValue, setSearchBarValue] = useState("");
+  const [searchBarValue, setSearchBarValue] = useState('');
   const [searchBarTimeout, setSearchBarTimeout] = useState(null);
   const [tagSearchTimeout, setTagSearchTimeout] = useState(null);
   const searchBarRef = useRef(null);
 
   useEffect(() => {
     /*    const getData = async () => { */
-    setLoading((prev) => {
+    setLoading(prev => {
       if (!prev) {
         return true;
       }
@@ -40,15 +40,15 @@ const Dashboard = () => {
     });
 
     /* --------------------Tags----------------------------- */
-    api.get("/tags").then((response) => {
+    api.get('/tags').then(response => {
       setApiTagsData(response.data.tags);
       setTags(response.data.tags);
     });
 
     /* --------------------Notes----------------------------- */
-    api.get("/notes").then((response) => {
+    api.get('/notes').then(response => {
       setApiNotesData(response.data.notes);
-      setLoading((prev) => {
+      setLoading(prev => {
         if (prev) {
           return false;
         }
@@ -62,7 +62,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     clearTimeout(tagSearchTimeout);
-    setLoading((prev) => {
+    setLoading(prev => {
       if (!prev) {
         return true;
       }
@@ -71,7 +71,7 @@ const Dashboard = () => {
     });
 
     const timeout = setTimeout(() => {
-      setLoading((prev) => {
+      setLoading(prev => {
         if (prev) {
           return false;
         }
@@ -84,9 +84,9 @@ const Dashboard = () => {
       */
       setNotes(() => {
         if (apiNotesData.length && search && search.length) {
-          const filteredNotes = apiNotesData.filter((note) => {
+          const filteredNotes = apiNotesData.filter(note => {
             if (search.length > 1 && note.tags.length >= search.length) {
-              const noteTagsInSearchArray = note.tags.map((tag) => {
+              const noteTagsInSearchArray = note.tags.map(tag => {
                 if (search.includes(tag.name)) return true;
                 return false;
               });
@@ -99,7 +99,7 @@ const Dashboard = () => {
 
                   return prev;
                 },
-                []
+                [],
               );
 
               return noteIncludesAllTags.length === search.length;
@@ -118,7 +118,7 @@ const Dashboard = () => {
 
                   return false;
                 },
-                false
+                false,
               );
 
               return noteHasSearchedTag;
@@ -144,7 +144,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     clearTimeout(searchBarTimeout);
-    setLoading((prev) => {
+    setLoading(prev => {
       if (!prev) {
         return true;
       }
@@ -153,7 +153,7 @@ const Dashboard = () => {
     });
 
     const timeout = setTimeout(() => {
-      setLoading((prev) => {
+      setLoading(prev => {
         if (prev) {
           return false;
         }
@@ -161,11 +161,11 @@ const Dashboard = () => {
         return prev;
       });
 
-      setNotes((prevNotes) => {
+      setNotes(prevNotes => {
         if (prevNotes && searchBarValue) {
-          const filteredNotes = prevNotes.filter((note) => {
+          const filteredNotes = prevNotes.filter(note => {
             const titleIncludesAllWords = searchBarValue
-              .split(" ")
+              .split(' ')
               .reduce((includesWordsPrev, word) => {
                 if (
                   includesWordsPrev &&
@@ -198,7 +198,7 @@ const Dashboard = () => {
       in the past and not all the notes filtered only by tag's filter.
     */
 
-        setSearch((searchPrev) => {
+        setSearch(searchPrev => {
           if (searchPrev) {
             const forceUpdate = [...searchPrev];
             return forceUpdate;
@@ -216,7 +216,7 @@ const Dashboard = () => {
     setSearchBarTimeout(timeout);
   }, [searchBarValue]);
 
-  const handleSearchBarChange = useCallback((e) => {
+  const handleSearchBarChange = useCallback(e => {
     setSearchBarValue(e.target.value);
   }, []);
 
@@ -246,7 +246,7 @@ const Dashboard = () => {
           <TagsContainer>
             {tags &&
               !!tags.length &&
-              tags.map((tag) => (
+              tags.map(tag => (
                 <Tag
                   key={tag.id}
                   name={tag.name}
@@ -264,7 +264,7 @@ const Dashboard = () => {
             {notes &&
               !loading &&
               !!notes.length &&
-              notes.map((note) => {
+              notes.map(note => {
                 return (
                   <NotePreview
                     key={note.id}
