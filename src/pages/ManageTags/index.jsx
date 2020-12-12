@@ -113,7 +113,7 @@ const ManageTags = () => {
               ))}
           </TagsArea>
 
-          {userTags && !!!userTags.length && (
+          {userTags && !userTags.length && (
             <NullContainer>
               <h3>Nenhuma tag para mostrar 😓</h3>
               <p>Crie novas tags para poder gerenciá-las.</p>
