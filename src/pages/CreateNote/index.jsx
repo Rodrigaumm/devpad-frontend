@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-import Switch from "react-switch";
+import React, { useState, useEffect, useCallback } from 'react';
+import Switch from 'react-switch';
 
-import Header from "../../components/Header";
-import TagManipulationInterface from "../../components/TagManipulationInterface";
-import SavePanel from "../../components/SavePanel";
+import Header from '../../components/Header';
+import TagManipulationInterface from '../../components/TagManipulationInterface';
+import SavePanel from '../../components/SavePanel';
 import {
   Container,
   ContentContainer,
@@ -14,14 +14,14 @@ import {
   EditorContainer,
   StyledTag,
   LinkURL,
-} from "./styles";
-import getEditor from "../../services/editorjs";
-import api from "../../services/api";
+} from './styles';
+import getEditor from '../../services/editorjs';
+import api from '../../services/api';
 
 const CreateNote = () => {
   const [isLink, setIsLink] = useState(false);
-  const [titleInputValue, setTitleInputValue] = useState("");
-  const [linkURLInputValue, setLinkURLInputValue] = useState("");
+  const [titleInputValue, setTitleInputValue] = useState('');
+  const [linkURLInputValue, setLinkURLInputValue] = useState('');
   const [newNoteData, setNewNoteData] = useState({});
   const [setDataTimeout, setSetDataTimeout] = useState(null);
   const [noteContent, setNoteContent] = useState({});
@@ -31,7 +31,7 @@ const CreateNote = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const { data } = await api.get("/tags");
+      const { data } = await api.get('/tags');
 
       setUserTags(data.tags);
     };
@@ -41,7 +41,7 @@ const CreateNote = () => {
 
   useEffect(() => {
     if (!isLink && !editor && titleInputValue.length) {
-      const newEditor = getEditor("editor", {});
+      const newEditor = getEditor('editor', {});
       setEditor(newEditor);
       return;
     }
@@ -60,7 +60,7 @@ const CreateNote = () => {
       clearTimeout(setDataTimeout);
     }
     const dataTimeout = setTimeout(() => {
-      setNewNoteData((prev) => {
+      setNewNoteData(prev => {
         const newData = { ...prev };
         if (titleInputValue) {
           newData.title = titleInputValue;
@@ -73,7 +73,7 @@ const CreateNote = () => {
         newData.isLink = isLink;
 
         if (editor) {
-          editor.save().then((outputData) => {
+          editor.save().then(outputData => {
             newData.content = outputData;
           });
         }
@@ -101,7 +101,7 @@ const CreateNote = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (editor) {
-        editor.save().then((outputData) => {
+        editor.save().then(outputData => {
           setNoteContent(outputData);
         });
       }
@@ -110,10 +110,10 @@ const CreateNote = () => {
   }, [editor]);
 
   const handleTitleInputValue = useCallback(
-    (e) => {
-      setTitleInputValue(e.target.value || "");
+    e => {
+      setTitleInputValue(e.target.value || '');
     },
-    [setTitleInputValue]
+    [setTitleInputValue],
   );
 
   return (
@@ -123,13 +123,13 @@ const CreateNote = () => {
         <ContentContainer>
           <SwitchContainer>
             <SwitchLabel>
-              {`Nov${isLink ? "o" : "a"} ${isLink ? "link" : "nota"}`}
+              {`Nov${isLink ? 'o' : 'a'} ${isLink ? 'link' : 'nota'}`}
             </SwitchLabel>
 
             <Switch
               checked={isLink}
               onChange={() => {
-                setIsLink((prev) => !prev);
+                setIsLink(prev => !prev);
               }}
               offColor="#E36396"
               onColor="#557DAC"
@@ -141,8 +141,8 @@ const CreateNote = () => {
 
           <TitleInput
             name="title"
-            placeholder={`Digite o título d${isLink ? "o" : "a"} ${
-              isLink ? "link" : "nota"
+            placeholder={`Digite o título d${isLink ? 'o' : 'a'} ${
+              isLink ? 'link' : 'nota'
             } `}
             value={titleInputValue}
             onChange={handleTitleInputValue}
@@ -157,7 +157,7 @@ const CreateNote = () => {
                 apiTags={userTags}
               />
               {noteTags &&
-                userTags.map((tag) => {
+                userTags.map(tag => {
                   if (noteTags.includes(tag.name)) {
                     return (
                       <StyledTag key={tag.id} color={tag.color}>
@@ -176,8 +176,8 @@ const CreateNote = () => {
             <LinkURL
               placeholder="Digite uma URL"
               value={linkURLInputValue}
-              onChange={(e) => {
-                setLinkURLInputValue(e.target.value || "");
+              onChange={e => {
+                setLinkURLInputValue(e.target.value || '');
               }}
             />
           )}

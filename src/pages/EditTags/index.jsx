@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
-import Header from "../../components/Header";
-import TagEditor from "../../components/TagEditor";
+import Header from '../../components/Header';
+import TagEditor from '../../components/TagEditor';
 import {
   Container,
   ContentContainer,
   TagsContainer,
   NullContainer,
   GoBackButton,
-} from "./styles";
+} from './styles';
 
 const EditTag = () => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const EditTag = () => {
     if (location && location.state && location.state.tags.length) {
       const newTagsObject = {};
 
-      location.state.tags.forEach((tagInArray) => {
+      location.state.tags.forEach(tagInArray => {
         newTagsObject[tagInArray.id] = {
           id: tagInArray.id,
           name: tagInArray.name,
@@ -38,7 +38,7 @@ const EditTag = () => {
         <h1>Painel de edição de Tags</h1>
         <TagsContainer hasContent={!!Object.keys(tagsInfos).length}>
           {tagsInfos &&
-            Object.entries(tagsInfos).map((tagInfo) => (
+            Object.entries(tagsInfos).map(tagInfo => (
               <TagEditor
                 key={tagInfo[1].id}
                 tagInfo={tagInfo[1]}

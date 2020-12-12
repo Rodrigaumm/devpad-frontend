@@ -21,8 +21,8 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(false);
   const [tags, setTags] = useState(null);
   const [notes, setNotes] = useState(null);
-  const [apiNotesData, setApiNotesData] = useState({});
-  const [apiTagsData, setApiTagsData] = useState({});
+  const [apiNotesData, setApiNotesData] = useState(null);
+  const [apiTagsData, setApiTagsData] = useState(null);
   const [search, setSearch] = useState([]);
   const [searchBarValue, setSearchBarValue] = useState('');
   const [searchBarTimeout, setSearchBarTimeout] = useState(null);
@@ -71,19 +71,21 @@ const Dashboard = () => {
     });
 
     const timeout = setTimeout(() => {
-      setLoading(prev => {
-        if (prev) {
-          return false;
-        }
+      if (apiNotesData && apiNotesData !== null) {
+        setLoading(prev => {
+          if (prev) {
+            return false;
+          }
 
-        return prev;
-      });
+          return prev;
+        });
+      }
 
       /*
 
       */
       setNotes(() => {
-        if (apiNotesData.length && search && search.length) {
+        if (apiNotesData && apiNotesData.length && search && search.length) {
           const filteredNotes = apiNotesData.filter(note => {
             if (search.length > 1 && note.tags.length >= search.length) {
               const noteTagsInSearchArray = note.tags.map(tag => {
@@ -153,13 +155,15 @@ const Dashboard = () => {
     });
 
     const timeout = setTimeout(() => {
-      setLoading(prev => {
-        if (prev) {
-          return false;
-        }
+      if (apiNotesData && apiNotesData !== null) {
+        setLoading(prev => {
+          if (prev) {
+            return false;
+          }
 
-        return prev;
-      });
+          return prev;
+        });
+      }
 
       setNotes(prevNotes => {
         if (prevNotes && searchBarValue) {

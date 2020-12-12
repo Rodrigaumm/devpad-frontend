@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import { FiChevronDown } from "react-icons/fi";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { FiChevronDown } from 'react-icons/fi';
 
-import logoImg from "../../assets/avatar.jpg";
-import UserEditPanel from "../HeaderUserEditPanel";
+import logoImg from '../../assets/avatar.jpg';
+import UserEditPanel from '../HeaderUserEditPanel';
 import {
   Container,
   UserAvatar,
   NameCaption,
   ShowOptionsButton,
-} from "./styles";
+} from './styles';
 
 const HeaderUserInfo = ({ username }) => {
   const [showEditPanel, setShowEditPanel] = useState(false);
@@ -21,7 +21,7 @@ const HeaderUserInfo = ({ username }) => {
         <img src={logoImg} alt="User's avatar" />
         <ShowOptionsButton
           onClick={() => {
-            setShowEditPanel((prev) => !prev);
+            setShowEditPanel(prev => !prev);
           }}
         >
           <FiChevronDown color="#557dac" size={16} />

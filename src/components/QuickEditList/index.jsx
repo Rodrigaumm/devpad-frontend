@@ -1,12 +1,12 @@
-import React, { useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import { useSpring, useTrail } from "react-spring";
-import { toast } from "react-toastify";
+import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { useSpring, useTrail } from 'react-spring';
+import { toast } from 'react-toastify';
 
-import { Container, EditOption, DeleteOption } from "./styles";
-import api from "../../services/api";
-import { useAuth } from "../../hooks/auth";
+import { Container, EditOption, DeleteOption } from './styles';
+import api from '../../services/api';
+import { useAuth } from '../../hooks/auth';
 
 const QuickEditList = ({ data, show, setGeneralData }) => {
   const userData = useAuth().data;
@@ -16,11 +16,11 @@ const QuickEditList = ({ data, show, setGeneralData }) => {
     props,
     setContainerAppear,
     stopContainerAppearAnimation,
-  ] = useSpring(() => ({ height: "0px", opacity: 0, display: "none" }));
+  ] = useSpring(() => ({ height: '0px', opacity: 0, display: 'none' }));
 
   const [trailProps, setTrailAppear, stopTrailAppearAnimation] = useTrail(
     2,
-    () => ({ transform: "scale(0.5)", opacity: 0 })
+    () => ({ transform: 'scale(0.5)', opacity: 0 }),
   );
 
   useEffect(() => {
@@ -30,13 +30,13 @@ const QuickEditList = ({ data, show, setGeneralData }) => {
       setTimeout(() => {
         setContainerAppear({
           opacity: 1,
-          display: "flex",
+          display: 'flex',
         });
       }, 50);
 
       setTimeout(() => {
         setContainerAppear({
-          height: "124px",
+          height: '124px',
         });
       }, 60);
 
@@ -48,7 +48,7 @@ const QuickEditList = ({ data, show, setGeneralData }) => {
 
       setTimeout(() => {
         setTrailAppear({
-          transform: "scale(1)",
+          transform: 'scale(1)',
           opacity: 1,
         });
       }, 600);
@@ -56,13 +56,13 @@ const QuickEditList = ({ data, show, setGeneralData }) => {
     }
 
     setTrailAppear({
-      transform: "scale(0.5)",
+      transform: 'scale(0.5)',
       opacity: 0,
     });
 
     setTimeout(() => {
       setContainerAppear({
-        height: "0px",
+        height: '0px',
       });
     }, 600);
 
@@ -71,7 +71,7 @@ const QuickEditList = ({ data, show, setGeneralData }) => {
     }, 750);
 
     setTimeout(() => {
-      setContainerAppear({ display: "none" });
+      setContainerAppear({ display: 'none' });
     }, 850);
   }, [show, setContainerAppear, stopContainerAppearAnimation]);
 
@@ -85,17 +85,17 @@ const QuickEditList = ({ data, show, setGeneralData }) => {
 
       await api.delete(`/notes/${data.id}`, requestConfig);
 
-      setGeneralData((prevState) => {
+      setGeneralData(prevState => {
         const newNoteList = [...prevState];
-        const findIndex = newNoteList.findIndex((note) => note.id === data.id);
+        const findIndex = newNoteList.findIndex(note => note.id === data.id);
         if (findIndex !== -1) newNoteList.splice(findIndex, 1);
 
         return newNoteList;
       });
 
-      toast.success("Nota excluída com sucesso!");
+      toast.success('Nota excluída com sucesso!');
     } catch (err) {
-      toast.error("Erro interno do servidor. Tenta novamente mais tarde.");
+      toast.error('Erro interno do servidor. Tenta novamente mais tarde.');
     }
   }, [data]);
 
@@ -120,7 +120,7 @@ const QuickEditList = ({ data, show, setGeneralData }) => {
           >
             <span>Editar</span>
           </EditOption>
-        )
+        ),
       )}
     </Container>
   );

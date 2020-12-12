@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 const NoteLink = ({ children, isLink, href, to, className }) => {
   return isLink ? (
@@ -23,9 +23,9 @@ NoteLink.propTypes = {
 
 NoteLink.defaultProps = {
   isLink: false,
-  href: "http://localhost:3000",
-  to: "/dashboard",
-  className: "",
+  href: 'http://localhost:3000',
+  to: '/dashboard',
+  className: '',
 };
 
 export default NoteLink;

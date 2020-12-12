@@ -1,18 +1,18 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import Header from "../../components/Header";
-import EditPanel from "../../components/EditPanel";
-import DeleteNoteConfirmation from "../../components/DeleteNoteConfirmation";
+import Header from '../../components/Header';
+import EditPanel from '../../components/EditPanel';
+import DeleteNoteConfirmation from '../../components/DeleteNoteConfirmation';
 import {
   Container,
   ContentContainer,
   EditorContainer,
   TagsContainer,
   StyledTag,
-} from "./styles";
-import api from "../../services/api";
-import getEditor from "../../services/editorjs";
+} from './styles';
+import api from '../../services/api';
+import getEditor from '../../services/editorjs';
 
 const ViewNote = () => {
   const { noteId } = useParams();
@@ -25,7 +25,7 @@ const ViewNote = () => {
     const getData = async () => {
       const { data: noteData } = await api.get(`/notes/${noteId}`);
 
-      setApidata((prev) => {
+      setApidata(prev => {
         const newObj = { ...prev };
 
         newObj.note = noteData.note;
@@ -44,11 +44,11 @@ const ViewNote = () => {
   useEffect(() => {
     setInterval(() => {
       const links = document.querySelectorAll(
-        'div[contenteditable="true"] > a'
+        'div[contenteditable="true"] > a',
       );
       if (links.length) {
-        links.forEach((link) => {
-          link.parentElement.setAttribute("contenteditable", "false");
+        links.forEach(link => {
+          link.parentElement.setAttribute('contenteditable', 'false');
         });
       }
     }, 2000);
@@ -56,7 +56,7 @@ const ViewNote = () => {
 
   useEffect(() => {
     if (noteInfo && noteInfo.content)
-      setEditor(getEditor("editor", noteInfo.content));
+      setEditor(getEditor('editor', noteInfo.content));
   }, [noteInfo]);
 
   return (
@@ -71,7 +71,7 @@ const ViewNote = () => {
             {noteInfo && <h1>{noteInfo.title}</h1>}
             <TagsContainer>
               {noteInfo &&
-                noteInfo.tags.map((tag) => (
+                noteInfo.tags.map(tag => (
                   <StyledTag key={tag.id} color={tag.color}>
                     {tag.name}
                   </StyledTag>

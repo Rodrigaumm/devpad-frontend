@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import { Container, LateralStripe, MiddleSkew, Caption } from "./styles";
+import { Container, LateralStripe, MiddleSkew, Caption } from './styles';
 
 const HeaderMiddleSkew = ({ children }) => {
   return (

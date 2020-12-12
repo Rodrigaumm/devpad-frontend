@@ -1,7 +1,7 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import { Container, LoadingSpin } from "./styles";
+import { Container, LoadingSpin } from './styles';
 
 const Loading = ({ className }) => {
   return (
@@ -16,7 +16,7 @@ Loading.propTypes = {
 };
 
 Loading.defaultProps = {
-  className: "",
+  className: '',
 };
 
 export default Loading;

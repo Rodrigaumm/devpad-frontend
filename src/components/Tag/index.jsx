@@ -1,18 +1,18 @@
-import React, { useCallback, useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
 const Tag = ({ name, color, setTagsArray, tagsArray, className }) => {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleTagClick = useCallback(() => {
-    setIsSelected((prev) => !prev);
+    setIsSelected(prev => !prev);
   }, []);
 
   useEffect(() => {
     if (setTagsArray) {
-      setTagsArray((prev) => {
+      setTagsArray(prev => {
         if (isSelected) {
           if (prev && !prev.includes(name)) {
             const newArray = [...prev];
@@ -36,7 +36,7 @@ const Tag = ({ name, color, setTagsArray, tagsArray, className }) => {
                 return false;
               }
               return true;
-            }
+            },
           );
           return filteredSearch;
         }
@@ -73,7 +73,7 @@ Tag.propTypes = {
 };
 
 Tag.defaultProps = {
-  className: "",
+  className: '',
 };
 
 export default Tag;

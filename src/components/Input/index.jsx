@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import * as FeatherIcons from "react-icons/fi";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import * as FeatherIcons from 'react-icons/fi';
 
-import { Container } from "./styles";
+import { Container } from './styles';
 
 const Input = ({
   size,
@@ -36,7 +36,7 @@ const Input = ({
           onFocus={() => {
             setIsFocused(true);
           }}
-          onBlur={(e) => {
+          onBlur={e => {
             setIsFocused(false);
 
             setIsFilled(!!e.target.value);
@@ -60,11 +60,12 @@ Input.propTypes = {
 
 Input.defaultProps = {
   size: 18,
-  type: "text",
-  color: "#D0D0D0",
-  icon: "FiUser",
-  placeholder: "Digite aqui",
+  type: 'text',
+  color: '#D0D0D0',
+  icon: 'FiUser',
+  placeholder: 'Digite aqui',
   hasError: false,
+  className: '',
 };
 
 export default Input;

@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import { FiMoreVertical } from "react-icons/fi";
-import PropTypes from "prop-types";
+import React, { useCallback, useRef, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { FiMoreVertical } from 'react-icons/fi';
+import PropTypes from 'prop-types';
 
-import QuickEditList from "../QuickEditList";
+import QuickEditList from '../QuickEditList';
 import {
   Container,
   ContentContainer,
@@ -12,20 +12,20 @@ import {
   QuickEditButton,
   TagsContainer,
   StyledTag,
-} from "./styles";
+} from './styles';
 
 const decorationColors = [
-  ["FF4AAC", "CA6E02"],
-  ["4AC9FF", "3BD29C"],
-  ["2D66A9", "E36396"],
-  ["E36396", "99D23B"],
-  ["2D66A9", "CA6E02"],
-  ["99D23B", "3BD29C"],
+  ['FF4AAC', 'CA6E02'],
+  ['4AC9FF', '3BD29C'],
+  ['2D66A9', 'E36396'],
+  ['E36396', '99D23B'],
+  ['2D66A9', 'CA6E02'],
+  ['99D23B', '3BD29C'],
 ];
 
 const NotePreview = ({ data, setGeneralData }) => {
   const [showEditList, setShowEditList] = useState(false);
-  const [randomColor, setRandomColor] = useState(["ccc", "b9b9b9"]);
+  const [randomColor, setRandomColor] = useState(['ccc', 'b9b9b9']);
   const quickEditButtonRef = useRef(null);
   const tagsContainerRef = useRef(null);
   const history = useHistory();
@@ -33,20 +33,20 @@ const NotePreview = ({ data, setGeneralData }) => {
   useEffect(() => {
     if (tagsContainerRef && tagsContainerRef.current) {
       if (tagsContainerRef.current.clientHeight > 70) {
-        tagsContainerRef.current.style.maxHeight = "50px";
-        tagsContainerRef.current.style.overflowY = "scroll";
+        tagsContainerRef.current.style.maxHeight = '50px';
+        tagsContainerRef.current.style.overflowY = 'scroll';
       }
     }
   }, [tagsContainerRef]);
 
   useEffect(() => {
     setRandomColor(
-      decorationColors[Math.floor(Math.random() * decorationColors.length)]
+      decorationColors[Math.floor(Math.random() * decorationColors.length)],
     );
   }, []);
 
   const handleNoteClick = useCallback(
-    (e) => {
+    e => {
       let isChild = false;
       let el = e.target;
 
@@ -64,20 +64,20 @@ const NotePreview = ({ data, setGeneralData }) => {
 
       if (data.isLink) {
         window.open(
-          data.content.url.startsWith("http")
+          data.content.url.startsWith('http')
             ? data.content.url
-            : `http://${data.content.url}`
+            : `http://${data.content.url}`,
         );
         return;
       }
 
       history.push(`/note/view/${data.id}`);
     },
-    [data, history, quickEditButtonRef]
+    [data, history, quickEditButtonRef],
   );
 
   const handleQuickEditClick = useCallback(() => {
-    setShowEditList((prev) => !prev);
+    setShowEditList(prev => !prev);
   }, [setShowEditList]);
 
   return (
@@ -100,7 +100,7 @@ const NotePreview = ({ data, setGeneralData }) => {
         </TitleContainer>
         <TagsContainer ref={tagsContainerRef}>
           {data.tags &&
-            data.tags.map((tag) => {
+            data.tags.map(tag => {
               return (
                 <StyledTag key={tag.id} color={tag.color}>
                   <span>{tag.name}</span>
@@ -126,7 +126,7 @@ NotePreview.propTypes = {
         id: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         color: PropTypes.string.isRequired,
-      })
+      }),
     ),
   }).isRequired,
   setGeneralData: PropTypes.func.isRequired,

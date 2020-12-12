@@ -1,36 +1,36 @@
-import React, { useCallback, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import * as yup from "yup";
-import { toast } from "react-toastify";
+import React, { useCallback, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
 
 import {
   Container,
   ContentContainer,
   BackgroundContainer,
   StyledInput,
-} from "./styles";
-import bonecoesDoPosto from "../../assets/bonecoes-do-posto.svg";
-import Logo from "../../components/Logo";
-import api from "../../services/api";
+} from './styles';
+import bonecoesDoPosto from '../../assets/bonecoes-do-posto.svg';
+import Logo from '../../components/Logo';
+import api from '../../services/api';
 
 const SignUp = () => {
   const [inputErrors, setInputErrors] = useState({});
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async e => {
       e.preventDefault();
 
       try {
         const schema = yup.object().shape({
-          username: yup.string().required("Nome de usuário obrigatório"),
+          username: yup.string().required('Nome de usuário obrigatório'),
           email: yup
             .string()
-            .email("Formato de e-mail inválido")
-            .required("E-mail obrigatório"),
+            .email('Formato de e-mail inválido')
+            .required('E-mail obrigatório'),
           password: yup
             .string()
-            .min(6, "A senha deve possuir 6 caracteres ou mais"),
+            .min(6, 'A senha deve possuir 6 caracteres ou mais'),
         });
 
         const formValuesArray = new FormData(e.target).entries();
@@ -41,18 +41,18 @@ const SignUp = () => {
 
             return prev;
           },
-          {}
+          {},
         );
 
         await schema.validate(formValues, { abortEarly: false });
 
-        await api.post("/users", formValues);
+        await api.post('/users', formValues);
 
         toast.success(
-          "Novo usuário criado com sucesso, você já pode fazer login �😉"
+          'Novo usuário criado com sucesso, você já pode fazer login 😉',
         );
 
-        history.push("/");
+        history.push('/');
       } catch (err) {
         if (err instanceof yup.ValidationError) {
           const inputErrorsObject = err.inner.reduce((prev, error) => {
@@ -65,7 +65,7 @@ const SignUp = () => {
             return prev;
           }, {});
 
-          setInputErrors((prev) => {
+          setInputErrors(prev => {
             const newValue = { ...prev, ...inputErrorsObject };
 
             return newValue;
@@ -78,20 +78,20 @@ const SignUp = () => {
           err.response &&
           err.response.status === 400
         ) {
-          toast.error("Email já cadastrado");
+          toast.error('Email já cadastrado');
           return;
         }
 
-        toast.error("Erro interno do servidor. Tente novamente mais tarde.");
+        toast.error('Erro interno do servidor. Tente novamente mais tarde.');
       }
     },
-    [setInputErrors]
+    [setInputErrors],
   );
 
   const handleFormChange = useCallback(
-    (e) => {
+    e => {
       if (inputErrors && inputErrors[e.target.name]) {
-        setInputErrors((prev) => {
+        setInputErrors(prev => {
           const newObj = { ...prev };
           newObj[e.target.name] = false;
           return newObj;
@@ -101,7 +101,7 @@ const SignUp = () => {
         e.target.focus();
       }
     },
-    [inputErrors]
+    [inputErrors],
   );
 
   return (

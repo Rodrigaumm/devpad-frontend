@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import { FaLongArrowAltRight } from "react-icons/fa";
-import * as yup from "yup";
-import { toast } from "react-toastify";
+import React, { useCallback, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { FaLongArrowAltRight } from 'react-icons/fa';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
 
-import Logo from "../../components/Logo";
-import Loading from "../../components/Loading";
+import Logo from '../../components/Logo';
+import Loading from '../../components/Loading';
 import {
   Container,
   ContentContainer,
   BackgroundContainer,
   StyledInput,
-} from "./styles";
-import bonecaoDoPosto from "../../assets/bonecao-do-posto.svg";
-import { useAuth } from "../../hooks/auth";
+} from './styles';
+import bonecaoDoPosto from '../../assets/bonecao-do-posto.svg';
+import { useAuth } from '../../hooks/auth';
 
 const SignIn = () => {
   const [inputErrors, setInputErrors] = useState({});
@@ -22,7 +22,7 @@ const SignIn = () => {
   const history = useHistory();
 
   const handleSubmit = useCallback(
-    async (e) => {
+    async e => {
       e.preventDefault();
       setInputErrors({});
 
@@ -30,12 +30,12 @@ const SignIn = () => {
         const schema = yup.object().shape({
           email: yup
             .string()
-            .email("Formato de e-mail inválido")
-            .required("E-mail obrigatório"),
-          password: yup.string().required("Senha obrigatória"),
+            .email('Formato de e-mail inválido')
+            .required('E-mail obrigatório'),
+          password: yup.string().required('Senha obrigatória'),
         });
 
-        setLoading((prev) => {
+        setLoading(prev => {
           if (!prev) {
             return true;
           }
@@ -51,7 +51,7 @@ const SignIn = () => {
 
             return prev;
           },
-          {}
+          {},
         );
 
         await schema.validate(formValues, {
@@ -62,11 +62,11 @@ const SignIn = () => {
 
         setLoading(false);
 
-        toast.success("Login realizado com sucesso �🤘");
+        toast.success('Login realizado com sucesso 🤘');
 
-        history.push("/dashboard");
+        history.push('/dashboard');
       } catch (err) {
-        setLoading((prev) => {
+        setLoading(prev => {
           if (prev) {
             return false;
           }
@@ -85,7 +85,7 @@ const SignIn = () => {
             return prev;
           }, {});
 
-          setInputErrors((prev) => {
+          setInputErrors(prev => {
             const errorsObject = {};
             Object.assign(errorsObject, prev);
             Object.assign(errorsObject, inputErrorsObject);
@@ -96,16 +96,16 @@ const SignIn = () => {
           return;
         }
 
-        toast.error("Credenciais inválidas, tente novamente.");
+        toast.error('Credenciais inválidas, tente novamente.');
       }
     },
-    [setInputErrors, signIn, history]
+    [setInputErrors, signIn, history],
   );
 
   const handleFormChange = useCallback(
-    (e) => {
+    e => {
       if (inputErrors && inputErrors[e.target.name]) {
-        setInputErrors((prev) => {
+        setInputErrors(prev => {
           const newState = { ...prev };
           newState[e.target.name] = false;
           return newState;
@@ -115,7 +115,7 @@ const SignIn = () => {
         e.target.focus();
       }
     },
-    [inputErrors]
+    [inputErrors],
   );
 
   return (

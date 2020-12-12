@@ -1,9 +1,9 @@
-import React, { useCallback, useRef, useState } from "react";
-import { BiPlusMedical } from "react-icons/bi";
-import { useSpring, useChain, animated } from "react-spring";
-import { useHistory } from "react-router-dom";
+import React, { useCallback, useRef, useState } from 'react';
+import { BiPlusMedical } from 'react-icons/bi';
+import { useSpring, useChain, animated } from 'react-spring';
+import { useHistory } from 'react-router-dom';
 
-import { Container, ButtonContainer, Caption } from "./styles";
+import { Container, ButtonContainer, Caption } from './styles';
 
 const CreateNoteButton = () => {
   const textAnimationRef = useRef();
@@ -12,7 +12,7 @@ const CreateNoteButton = () => {
   const history = useHistory();
 
   const [barProps, setBarProps] = useSpring(() => ({
-    width: "0px",
+    width: '0px',
     ref: barAnimationRef,
   }));
 
@@ -24,14 +24,14 @@ const CreateNoteButton = () => {
   useChain(
     initAnimation
       ? [barAnimationRef, textAnimationRef]
-      : [textAnimationRef, barAnimationRef]
+      : [textAnimationRef, barAnimationRef],
   );
 
   const handleButtonMouseEnter = useCallback(() => {
     setInitAnimation(true);
 
     setBarProps({
-      width: "200px",
+      width: '200px',
     });
 
     setTextProps({ opacity: 1 });
@@ -42,11 +42,11 @@ const CreateNoteButton = () => {
 
     setTextProps({ opacity: 0 });
 
-    setBarProps({ width: "0px" });
+    setBarProps({ width: '0px' });
   }, [setTextProps, setBarProps]);
 
   const handleButtonClick = useCallback(() => {
-    history.push("/note/create");
+    history.push('/note/create');
   }, [history]);
 
   return (

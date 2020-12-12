@@ -1,28 +1,28 @@
-import React, { useCallback } from "react";
-import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
-import * as yup from "yup";
-import { toast } from "react-toastify";
+import React, { useCallback } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
 
-import { Container, SaveButton, CancelButton } from "./styles";
-import api from "../../services/api";
+import { Container, SaveButton, CancelButton } from './styles';
+import api from '../../services/api';
 
 const SavePanel = ({ data }) => {
   const history = useHistory();
 
   const handleCancelClick = useCallback(() => {
-    history.push("/dashboard");
+    history.push('/dashboard');
   }, [history]);
 
   const handleSaveClick = useCallback(async () => {
     try {
       if (data.isLink) {
         const linkSchema = yup.object().shape({
-          title: yup.string().required("Título obrigatório"),
+          title: yup.string().required('Título obrigatório'),
           content: yup.object().shape({
             url: yup
               .string()
-              .required("Um link deve possuir obrigatoriamente uma URL"),
+              .required('Um link deve possuir obrigatoriamente uma URL'),
           }),
         });
 
@@ -31,7 +31,7 @@ const SavePanel = ({ data }) => {
         });
       } else {
         const noteSchema = yup.object().shape({
-          title: yup.string().required("Título obrigatório"),
+          title: yup.string().required('Título obrigatório'),
         });
 
         await noteSchema.validate(data, {
@@ -39,13 +39,13 @@ const SavePanel = ({ data }) => {
         });
       }
 
-      await api.post("/notes", data);
-      history.push("/dashboard");
+      await api.post('/notes', data);
+      history.push('/dashboard');
 
-      toast.success("Nova nota criada com sucesso!");
+      toast.success('Nova nota criada com sucesso!');
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        err.errors.forEach((yupErrMessage) => {
+        err.errors.forEach(yupErrMessage => {
           toast.error(yupErrMessage);
         });
       }

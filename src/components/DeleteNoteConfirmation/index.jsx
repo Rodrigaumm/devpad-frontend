@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { useHistory } from "react-router-dom";
-import PropTypes from "prop-types";
-import { FiTrash } from "react-icons/fi";
-import { toast } from "react-toastify";
+import React, { useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { FiTrash } from 'react-icons/fi';
+import { toast } from 'react-toastify';
 
 import {
   Container,
@@ -10,8 +10,8 @@ import {
   ButtonsContainer,
   CancelButton,
   ConfirmButton,
-} from "./styles";
-import api from "../../services/api";
+} from './styles';
+import api from '../../services/api';
 
 const DeleteNoteConfirmation = ({ setShowConfirmation, noteId }) => {
   const history = useHistory();
@@ -24,7 +24,7 @@ const DeleteNoteConfirmation = ({ setShowConfirmation, noteId }) => {
     try {
       await api.delete(`/notes/${noteId}`);
 
-      history.replace("/dashboard");
+      history.replace('/dashboard');
     } catch (err) {
       toast.error(err.message);
     }

@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import PropTypes from "prop-types";
-import { FiCheck } from "react-icons/fi";
-import * as yup from "yup";
-import { toast } from "react-toastify";
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { FiCheck } from 'react-icons/fi';
+import * as yup from 'yup';
+import { toast } from 'react-toastify';
 
 import {
   Container,
@@ -14,8 +14,8 @@ import {
   SaveButton,
   StyledBlockPicker,
   StyledLoading,
-} from "./styles";
-import api from "../../services/api";
+} from './styles';
+import api from '../../services/api';
 
 const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
   const [loading, setLoading] = useState(false);
@@ -24,7 +24,7 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
       return tagInfo.name;
     }
 
-    return "";
+    return '';
   });
   const [tagColor, setTagColor] = useState(() => {
     if (tagInfo && tagInfo.color) {
@@ -38,14 +38,14 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
   useEffect(() => {
     clearTimeout(changeTagInfoTimeout);
     const timeout = setTimeout(() => {
-      setTagsInfos((prevInfo) => {
+      setTagsInfos(prevInfo => {
         if (pathname && prevInfo[pathname]) {
           const newState = { ...prevInfo };
 
           newState[pathname] = {
             ...newState[pathname],
             name: tagNameInputValue || pathname,
-            color: tagColor || "ccc",
+            color: tagColor || 'ccc',
           };
 
           return newState;
@@ -58,7 +58,7 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
 
   const handleSaveClick = useCallback(async () => {
     try {
-      setLoading((prevLoading) => {
+      setLoading(prevLoading => {
         if (!prevLoading) {
           return true;
         }
@@ -71,10 +71,10 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
           .string()
           .max(
             100,
-            "Parece que o nome da sua Tag é muito extenso, tem certeza que precisa de tudo isso? �🤔"
+            'Parece que o nome da sua Tag é muito extenso, tem certeza que precisa de tudo isso? 🤔',
           )
-          .required("O nome da tag é obrigatório"),
-        color: yup.string().required("Uma cor deve ser escolhida"),
+          .required('O nome da tag é obrigatório'),
+        color: yup.string().required('Uma cor deve ser escolhida'),
       });
 
       await schema.validate(tagInfo);
@@ -84,7 +84,7 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
         color: tagInfo.color,
       });
 
-      setTagsInfos((prevState) => {
+      setTagsInfos(prevState => {
         const newState = { ...prevState };
 
         delete newState[tagInfo.id];
@@ -92,10 +92,10 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
         return newState;
       });
 
-      toast.success("Tag atualizada com sucesso! ✅");
+      toast.success('Tag atualizada com sucesso! ✅');
     } catch (err) {
       if (err instanceof yup.ValidationError && err.errors) {
-        err.errors.forEach((errorMessage) => {
+        err.errors.forEach(errorMessage => {
           toast.error(errorMessage);
         });
 
@@ -115,7 +115,7 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
         }
       >
         <TagPreview color={tagColor}>
-          <span>{tagNameInputValue || "Escolha um nome"}</span>
+          <span>{tagNameInputValue || 'Escolha um nome'}</span>
         </TagPreview>
       </TagPreviewContainer>
       {loading && <StyledLoading />}
@@ -125,14 +125,14 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
             <input
               type="text"
               value={tagNameInputValue}
-              onChange={(e) => {
-                settagNameInputValue(e.target.value || "");
+              onChange={e => {
+                settagNameInputValue(e.target.value || '');
               }}
             />
             <ColorPickerButton
               color={`#${tagColor}`}
               onClick={() => {
-                setShowColorPicker((prev) => !prev);
+                setShowColorPicker(prev => !prev);
               }}
             />
 
@@ -140,40 +140,40 @@ const TagEditor = ({ tagInfo, setTagsInfos, pathname }) => {
               <StyledBlockPicker
                 color={`#${tagColor}`}
                 colors={[
-                  "#FF7070",
-                  "#FFAC70",
-                  "#FFD770",
-                  "#C9FF70",
-                  "#70FFD4",
-                  "#C970FF",
-                  "#8D70FF",
-                  "#70A1FF",
-                  "#70D4FF",
-                  "#70EEFF",
+                  '#FF7070',
+                  '#FFAC70',
+                  '#FFD770',
+                  '#C9FF70',
+                  '#70FFD4',
+                  '#C970FF',
+                  '#8D70FF',
+                  '#70A1FF',
+                  '#70D4FF',
+                  '#70EEFF',
                 ]}
-                onChange={(color) => {
-                  setTagColor(color.hex.split("#")[1]);
+                onChange={color => {
+                  setTagColor(color.hex.split('#')[1]);
                 }}
                 width="250px"
                 styles={{
                   default: {
                     head: {
-                      height: "auto",
-                      padding: ["80px"],
+                      height: 'auto',
+                      padding: ['80px'],
                     },
                     input: {
-                      padding: ["24px", "16px"],
-                      borderRadius: "10px",
-                      textAlign: "center",
-                      color: "#ccc",
-                      height: "auto",
-                      width: "100%",
+                      padding: ['24px', '16px'],
+                      borderRadius: '10px',
+                      textAlign: 'center',
+                      color: '#ccc',
+                      height: 'auto',
+                      width: '100%',
                     },
                     body: {
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                     },
                   },
                 }}

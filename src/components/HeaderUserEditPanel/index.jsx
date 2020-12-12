@@ -1,25 +1,25 @@
-import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
-import { useTrail, useSpring, useChain } from "react-spring";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import { useTrail, useSpring, useChain } from 'react-spring';
+import { useHistory } from 'react-router-dom';
 
-import { Container, Option } from "./styles";
-import { useAuth } from "../../hooks/auth";
+import { Container, Option } from './styles';
+import { useAuth } from '../../hooks/auth';
 
 const HeaderUserEditPanel = ({ show }) => {
   const { signOut } = useAuth();
   const containerAnimationRef = useRef();
   const optionsTrailAnimationRef = useRef();
   const [props, setContainerAppear] = useSpring(() => ({
-    height: "0px",
+    height: '0px',
     opacity: 0,
     ref: containerAnimationRef,
   }));
 
   const [trailProps, setTrailAppear] = useTrail(2, () => ({
-    transform: "scale(0.5)",
+    transform: 'scale(0.5)',
     opacity: 0,
-    pointerEvents: "none",
+    pointerEvents: 'none',
     ref: optionsTrailAnimationRef,
   }));
 
@@ -28,13 +28,13 @@ const HeaderUserEditPanel = ({ show }) => {
   useChain(
     show
       ? [containerAnimationRef, optionsTrailAnimationRef]
-      : [optionsTrailAnimationRef, containerAnimationRef]
+      : [optionsTrailAnimationRef, containerAnimationRef],
   );
 
   useEffect(() => {
     if (show) {
       setContainerAppear({
-        height: "150px",
+        height: '150px',
         opacity: 1,
       });
 
@@ -47,21 +47,21 @@ const HeaderUserEditPanel = ({ show }) => {
 
       */
       setTrailAppear({
-        transform: "scale(1)",
+        transform: 'scale(1)',
         opacity: 1,
-        pointerEvents: "auto",
+        pointerEvents: 'auto',
       });
       return;
     }
 
     setTrailAppear({
-      transform: "scale(0.5)",
+      transform: 'scale(0.5)',
       opacity: 0,
-      pointerEvents: "none",
+      pointerEvents: 'none',
     });
 
     setContainerAppear({
-      height: "0px",
+      height: '0px',
       opacity: 0,
     });
   }, [show, setContainerAppear, setTrailAppear]);
@@ -73,7 +73,7 @@ const HeaderUserEditPanel = ({ show }) => {
           <Option
             key="tags"
             onClick={() => {
-              history.push("/tags");
+              history.push('/tags');
             }}
             style={trailElementProps}
           >
@@ -84,13 +84,13 @@ const HeaderUserEditPanel = ({ show }) => {
             key="logout"
             onClick={() => {
               signOut();
-              history.push("/");
+              history.push('/');
             }}
             style={trailElementProps}
           >
             <span>Fazer logout</span>
           </Option>
-        )
+        ),
       )}
     </Container>
   );

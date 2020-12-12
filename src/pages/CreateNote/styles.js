@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -68,7 +68,7 @@ export const TagsContainer = styled.div`
 `;
 
 export const StyledTag = styled.div`
-  background: #${(props) => props.color};
+  background: #${props => props.color};
 
   border-radius: 50px;
 

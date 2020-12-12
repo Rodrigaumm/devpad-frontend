@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
-import Header from "../../components/Header";
-import EditPanel from "../../components/EditPanel";
-import TagManipulationInterface from "../../components/TagManipulationInterface";
-import DeleteNoteConfirmation from "../../components/DeleteNoteConfirmation";
+import Header from '../../components/Header';
+import EditPanel from '../../components/EditPanel';
+import TagManipulationInterface from '../../components/TagManipulationInterface';
+import DeleteNoteConfirmation from '../../components/DeleteNoteConfirmation';
 import {
   Container,
   ContentContainer,
@@ -13,17 +13,17 @@ import {
   LinkURLInput,
   TagsContainer,
   StyledTag,
-} from "./styles";
-import api from "../../services/api";
-import getEditor from "../../services/editorjs";
+} from './styles';
+import api from '../../services/api';
+import getEditor from '../../services/editorjs';
 
 const EditNote = () => {
   const { noteId } = useParams();
   const [noteData, setNoteData] = useState(null);
   const [tagsData, setTagsData] = useState(null);
   const [selectedTags, setSelectedTags] = useState([]);
-  const [titleInputValue, setTitleInputValue] = useState("");
-  const [contentUrlInputValue, setContentUrlInputValue] = useState("");
+  const [titleInputValue, setTitleInputValue] = useState('');
+  const [contentUrlInputValue, setContentUrlInputValue] = useState('');
   const [newNoteData, setNewNoteData] = useState(null);
   const [editor, setEditor] = useState(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -31,7 +31,7 @@ const EditNote = () => {
   useEffect(() => {
     const getData = async () => {
       const noteResponse = await api.get(`/notes/${noteId}`);
-      const tagsResponse = await api.get("/tags");
+      const tagsResponse = await api.get('/tags');
 
       setNoteData(noteResponse.data.note);
 
@@ -43,15 +43,15 @@ const EditNote = () => {
 
   useEffect(() => {
     if (noteData) {
-      setTitleInputValue(noteData.title || "");
-      setContentUrlInputValue(noteData.content.url || "");
+      setTitleInputValue(noteData.title || '');
+      setContentUrlInputValue(noteData.content.url || '');
       setSelectedTags(() => {
-        const selectedTagsNames = noteData.tags.map((tag) => tag.name);
+        const selectedTagsNames = noteData.tags.map(tag => tag.name);
         return selectedTagsNames;
       });
 
       if (!noteData.isLink) {
-        const newEditor = getEditor("editor", noteData.content);
+        const newEditor = getEditor('editor', noteData.content);
         setEditor(newEditor);
       }
     }
@@ -95,8 +95,8 @@ const EditNote = () => {
             name="noteTitle"
             placeholder="Digite o título da nota"
             value={titleInputValue}
-            onChange={(e) => {
-              setTitleInputValue(e.target.value || "");
+            onChange={e => {
+              setTitleInputValue(e.target.value || '');
             }}
           />
 
@@ -110,7 +110,7 @@ const EditNote = () => {
 
             {(selectedTags &&
               tagsData &&
-              tagsData.map((tag) => {
+              tagsData.map(tag => {
                 if (selectedTags.includes(tag.name)) {
                   return (
                     <StyledTag key={tag.id} color={tag.color}>
@@ -120,7 +120,7 @@ const EditNote = () => {
                 }
               })) ||
               (noteData &&
-                noteData.tags.map((tag) => (
+                noteData.tags.map(tag => (
                   <StyledTag key={tag.id} color={tag.color}>
                     <span>{tag.name}</span>
                   </StyledTag>
@@ -129,15 +129,15 @@ const EditNote = () => {
 
           <EditorContainer
             id="editor"
-            style={{ display: noteData && noteData.isLink ? "none" : "block" }}
+            style={{ display: noteData && noteData.isLink ? 'none' : 'block' }}
           />
           <LinkURLInput
             type="text"
             name="noteURL"
-            onChange={(e) => {
-              setContentUrlInputValue(e.target.value || "");
+            onChange={e => {
+              setContentUrlInputValue(e.target.value || '');
             }}
-            style={{ display: noteData && noteData.isLink ? "block" : "none" }}
+            style={{ display: noteData && noteData.isLink ? 'block' : 'none' }}
             value={contentUrlInputValue}
           />
         </ContentContainer>

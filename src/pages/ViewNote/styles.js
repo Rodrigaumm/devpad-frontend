@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
@@ -8,11 +8,11 @@ export const Container = styled.div`
 
   justify-items: stretch;
 
-  ${(props) =>
+  ${props =>
     props.showConfirmation &&
     css`
       &::before {
-        content: "";
+        content: '';
         width: 100%;
         height: ${`${props.height}px`};
 
@@ -31,7 +31,7 @@ export const Container = styled.div`
 
 export const ContentContainer = styled.div`
   width: 60%;
-  min-height: ${(window.outerHeight * 62) / 100}px;
+  min-height: ${(window.outerHeight * 65.75) / 100}px;
 
   display: flex;
   flex-direction: column;
@@ -115,8 +115,8 @@ export const StyledTag = styled.div`
   display: flex;
   align-items: center;
 
-  background: #${(props) => props.color};
-  border: 3px solid #${(props) => props.color};
+  background: #${props => props.color};
+  border: 3px solid #${props => props.color};
   border-radius: 50px;
 
   padding: 8px 16px;
