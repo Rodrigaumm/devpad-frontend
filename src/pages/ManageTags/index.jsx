@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 
-import Header from "../../components/Header";
-import TagManipulationInterface from "../../components/TagManipulationInterface";
+import Header from '../../components/Header';
+import TagManipulationInterface from '../../components/TagManipulationInterface';
 import {
   Container,
   ContentContainer,
@@ -15,8 +15,8 @@ import {
   CancelButton,
   DeleteButton,
   EditButton,
-} from "./styles";
-import api from "../../services/api";
+} from './styles';
+import api from '../../services/api';
 
 const ManageTags = () => {
   const history = useHistory();
@@ -26,7 +26,7 @@ const ManageTags = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const response = await api.get("/tags");
+      const response = await api.get('/tags');
 
       setUserTags([...response.data.tags]);
     };
@@ -37,8 +37,8 @@ const ManageTags = () => {
   useEffect(() => {
     if (selectedTags.length && userTags.length) {
       setSelectedTagsObjects(() => {
-        const newTags = userTags.filter((userTag) =>
-          selectedTags.includes(userTag.name)
+        const newTags = userTags.filter(userTag =>
+          selectedTags.includes(userTag.name),
         );
 
         return newTags;
@@ -48,9 +48,9 @@ const ManageTags = () => {
 
   const handleDeleteClick = useCallback(async () => {
     if (selectedTags.length && selectedTagsObjects.length) {
-      const deletePromises = selectedTags.map((tagName) => {
+      const deletePromises = selectedTags.map(tagName => {
         const tagIdFindIndex = selectedTagsObjects.findIndex(
-          (tag) => tag.name === tagName
+          tag => tag.name === tagName,
         );
         if (tagIdFindIndex === -1) return;
 
@@ -58,12 +58,12 @@ const ManageTags = () => {
           try {
             await api.delete(`/tags/${selectedTagsObjects[tagIdFindIndex].id}`);
 
-            setUserTags((prev) => {
+            setUserTags(prev => {
               const newArray = [...prev];
 
               const findIndex = newArray.findIndex(
-                (userTag) =>
-                  userTag.id === selectedTagsObjects[tagIdFindIndex].id
+                userTag =>
+                  userTag.id === selectedTagsObjects[tagIdFindIndex].id,
               );
 
               if (findIndex !== -1) newArray.splice(findIndex, 1);
@@ -81,6 +81,7 @@ const ManageTags = () => {
       await Promise.all(deletePromises);
 
       setSelectedTags([]);
+      setSelectedTagsObjects([]);
     }
   }, [selectedTags, selectedTagsObjects]);
 
@@ -101,7 +102,7 @@ const ManageTags = () => {
 
             {userTags &&
               !!userTags.length &&
-              userTags.map((userTag) => (
+              userTags.map(userTag => (
                 <StyledTag
                   key={userTag.id}
                   name={userTag.name}
@@ -114,7 +115,7 @@ const ManageTags = () => {
 
           {userTags && !!!userTags.length && (
             <NullContainer>
-              <h3>Nenhuma tag para mostrar �😓</h3>
+              <h3>Nenhuma tag para mostrar 😓</h3>
               <p>Crie novas tags para poder gerenciá-las.</p>
             </NullContainer>
           )}
@@ -124,7 +125,7 @@ const ManageTags = () => {
           <ActionsPanel>
             <CancelButton
               onClick={() => {
-                history.replace("/dashboard");
+                history.replace('/dashboard');
               }}
             >
               <span>Voltar</span>
@@ -135,10 +136,10 @@ const ManageTags = () => {
             <EditButton
               to={
                 (!!selectedTagsObjects.length && {
-                  pathname: "/tags/edit",
+                  pathname: '/tags/edit',
                   state: { tags: [...selectedTagsObjects] },
                 }) ||
-                "/tags"
+                '/tags'
               }
             >
               <span>Editar ({selectedTags && selectedTags.length})</span>
