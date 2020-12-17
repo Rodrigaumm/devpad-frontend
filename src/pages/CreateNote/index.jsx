@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Switch from 'react-switch';
-<<<<<<< HEAD
-
-=======
->>>>>>> local
 import Header from '../../components/Header';
 import TagManipulationInterface from '../../components/TagManipulationInterface';
 import SavePanel from '../../components/SavePanel';
