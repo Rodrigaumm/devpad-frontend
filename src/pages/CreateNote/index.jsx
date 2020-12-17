@@ -75,11 +75,7 @@ const CreateNote = () => {
 
         newData.isLink = isLink;
 
-<<<<<<< HEAD
-        if (editor) {
-=======
         if (editor && editor.save) {
->>>>>>> local
           editor.save().then(outputData => {
             newData.content = outputData;
           });
