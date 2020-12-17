@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import Switch from 'react-switch';
+<<<<<<< HEAD
 
+=======
+>>>>>>> local
 import Header from '../../components/Header';
 import TagManipulationInterface from '../../components/TagManipulationInterface';
 import SavePanel from '../../components/SavePanel';
@@ -72,7 +75,11 @@ const CreateNote = () => {
 
         newData.isLink = isLink;
 
+<<<<<<< HEAD
         if (editor) {
+=======
+        if (editor && editor.save) {
+>>>>>>> local
           editor.save().then(outputData => {
             newData.content = outputData;
           });
